@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', async function() {
   
   // Complete Google Translate language support
   const allLanguages = {
-    'auto': '🔍 Auto-Detect',
     'af': '🇿🇦 Afrikaans',
     'sq': '🇦🇱 Albanian', 
     'am': '🇪🇹 Amharic',
