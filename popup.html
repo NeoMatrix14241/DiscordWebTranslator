@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Translator</title>
+  <style>
+    body {
+      width: 320px;
+      padding: 20px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .header h2 {
+      margin: 0;
+      color: #333;
+      font-size: 18px;
+    }
+    
+    .status-card {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    
+    .settings-info {
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      border-left: 4px solid #667eea;
+    }
+    
+    .setting-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+    
+    .setting-label {
+      font-weight: 500;
+      color: #555;
+    }
+    
+    .setting-value {
+      color: #333;
+      font-weight: bold;
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 10px;
+      margin-top: 15px;
+    }
+    
+    .btn {
+      background: #6c757d;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      flex: 1;
+      font-size: 13px;
+      font-weight: 500;
+      transition: background 0.2s;
+    }
+    
+    .btn:hover {
+      background: #5a6268;
+    }
+    
+    .btn-primary {
+      background: #667eea;
+    }
+    
+    .btn-primary:hover {
+      background: #5a6fd8;
+    }
+    
+    .current-site {
+      font-size: 12px;
+      margin-top: 8px;
+      opacity: 0.9;
+    }
+    
+    .help-content {
+      display: none;
+      background: #f8f9fa;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+      font-size: 13px;
+      line-height: 1.4;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    
+    .help-section {
+      margin-bottom: 15px;
+    }
+    
+    .help-section h4 {
+      margin: 0 0 8px 0;
+      color: #333;
+      font-size: 14px;
+    }
+    
+    .help-section p {
+      margin: 0 0 8px 0;
+      color: #555;
+    }
+    
+    .help-section ul {
+      margin: 0;
+      padding-left: 16px;
+    }
+    
+    .help-section li {
+      margin-bottom: 4px;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h2>🌐 Smart Translator</h2>
+  </div>
+  
+  <div class="status-card">
+    <div>Status: <span id="extensionStatus">Active</span></div>
+    <div class="current-site" id="currentSite"></div>
+  </div>
+  
+  <div class="settings-info">
+    <div class="setting-row">
+      <span class="setting-label">Help Mode:</span>
+      <span class="setting-value" id="helpModeStatus">Enabled</span>
+    </div>
+    <div class="setting-row">
+      <span class="setting-label">Output Mode:</span>
+      <span class="setting-value" id="outputModeStatus">Enabled</span>
+    </div>
+    <div class="setting-row">
+      <span class="setting-label">Typing Language:</span>
+      <span class="setting-value" id="typingLanguage">English</span>
+    </div>
+    <div class="setting-row">
+      <span class="setting-label">Target Translation Language:</span>
+      <span class="setting-value" id="targetTranslationLanguage">German</span>
+    </div>
+    <div class="setting-row">
+      <span class="setting-label">Translation Delay:</span>
+      <span class="setting-value" id="translationDelay">600ms</span>
+    </div>
+    <div class="setting-row">
+      <span class="setting-label">Site Access:</span>
+      <span class="setting-value" id="siteAccess">All Sites</span>
+    </div>
+  </div>
+  
+  <div class="button-group">
+    <button id="settingsBtn" class="btn btn-primary">Settings</button>
+    <button id="helpBtn" class="btn">Help</button>
+  </div>
+  
+  <div id="helpContent" class="help-content">
+    <div class="help-section">
+      <h4>🌐 Smart Translator Documentation</h4>
+      <p>A translation extension optimized for Discord. May work on other sites but compatibility is not guaranteed.</p>
+    </div>
+    
+    <div class="help-section">
+      <h4>🆘 Help Mode</h4>
+      <p>Automatically detects foreign text on web pages and adds translate buttons.</p>
+      <ul>
+        <li>Green 🌐 button appears next to foreign text</li>
+        <li>Click to translate to your preferred language</li>
+        <li>Click 🔄 button to restore original text</li>
+        <li>Optimized for Discord; other sites may have limited compatibility</li>
+      </ul>
+    </div>
+    
+    <div class="help-section">
+      <h4>✍️ Output Mode</h4>
+      <p>Translates your typing in real-time to help you learn languages.</p>
+      <ul>
+        <li>Type in your native language</li>
+        <li>See translation popup after configured delay</li>
+        <li>Copy translation to clipboard</li>
+        <li>Tested on Discord; other sites may have varying compatibility</li>
+      </ul>
+    </div>
+    
+    <div class="help-section">
+      <h4>🌍 Site Configuration</h4>
+      <p>Control which websites the translator works on:</p>
+      <ul>
+        <li><strong>All Sites:</strong> Works everywhere</li>
+        <li><strong>Specific Sites:</strong> Only on configured domains</li>
+        <li>Supports wildcards: *.google.com</li>
+        <li>Supports full URLs: https://example.com/*</li>
+      </ul>
+    </div>
+    
+    <div class="help-section">
+      <h4>⚙️ Settings</h4>
+      <p>Configure the extension behavior:</p>
+      <ul>
+        <li><strong>Languages I Understand:</strong> Select your native languages</li>
+        <li><strong>Target Language:</strong> What to translate foreign text to</li>
+        <li><strong>Typing Language:</strong> Your usual typing language</li>
+        <li><strong>Target Translation Language:</strong> Target language you want to translate to</li>
+        <li><strong>Translation Delay:</strong> How long to wait before translating (300-3000ms)</li>
+      </ul>
+    </div>
+    
+    <div class="help-section">
+      <h4>🔧 How It Works</h4>
+      <p>The extension uses multiple translation services:</p>
+      <ul>
+        <li>Primary: Google Translate API (free)</li>
+        <li>Fallback: MyMemory Translation API</li>
+        <li>No API keys required</li>
+        <li>Works offline after initial page load</li>
+      </ul>
+    </div>
+    
+    <div class="help-section">
+      <h4>🎯 Supported Sites</h4>
+      <p>Site compatibility:</p>
+      <ul>
+        <li><strong>Discord</strong> - Fully tested and optimized (chat messages and typing)</li>
+        <li><strong>Other Sites</strong> - May work but not officially tested or supported</li>
+        <li>Use at your own risk on untested sites</li>
+        <li>Best experience guaranteed only on Discord</li>
+      </ul>
+    </div>
+    
+    <div class="help-section">
+      <h4>🚀 Quick Start</h4>
+      <p>To get started:</p>
+      <ul>
+        <li>1. Click "Settings" to configure languages</li>
+        <li>2. Enable Help Mode and/or Output Mode</li>
+        <li>3. Set your native and target translation languages</li>
+        <li>4. Configure which sites to use it on</li>
+        <li>5. Save settings and start using!</li>
+      </ul>
+    </div>
+    
+    <div class="help-section">
+      <h4>🔍 Troubleshooting</h4>
+      <p>If translation isn't working:</p>
+      <ul>
+        <li>Check if the current site is in your allowed sites</li>
+        <li>Ensure Help/Output Mode is enabled in settings</li>
+        <li>Try refreshing the page after changing settings</li>
+        <li>Check browser console for error messages</li>
+        <li>Verify internet connection (required for translation)</li>
+      </ul>
+    </div>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
