@@ -1,4 +1,4 @@
-# 🌐 Smart Translator - Universal Browser Extension
+# 🌐 Smart Translator - Chromium Browser Extension
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Chrome Web Store](https://img.shields.io/badge/Chrome-Web%20Store-blue)](https://chrome.google.com/webstore)
